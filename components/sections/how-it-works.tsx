@@ -1,101 +1,61 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Server, Cpu, Volume2, Zap, ArrowRight, Gamepad2 } from "lucide-react"
+import { Server, Cpu, Volume2, ArrowRight, Gamepad2 } from "lucide-react"
 import { useTheme } from "@/contexts/theme-context"
 
-const architecture = [
+const steps = [
   {
     icon: Gamepad2,
+    number: "01",
     title: "Dota 2",
     subtitle: "Game State Integration",
-    description: "O jogo envia dados em tempo real via API oficial da Valve",
+    description: "API oficial da Valve envia eventos do jogo em tempo real",
     color: "from-red-500 to-orange-500",
-    position: "left",
+    borderColor: "border-red-300",
   },
   {
     icon: Server,
+    number: "02",
     title: "Backend Go",
     subtitle: "Processamento Ultra-Rápido",
-    description: "Analisa eventos, calcula timings e dispara alertas instantâneos",
+    description: "Motor Go analisa eventos e calcula timings com latência < 10ms",
     color: "from-blue-500 to-cyan-500",
-    position: "center",
+    borderColor: "border-blue-300",
   },
   {
     icon: Cpu,
     title: "Frontend React",
+    number: "03",
     subtitle: "Interface Moderna",
-    description: "UI responsiva mostra status e permite configurações em tempo real",
+    description: "UI responsiva exibe status e configurações em tempo real",
     color: "from-purple-500 to-pink-500",
-    position: "right",
+    borderColor: "border-purple-300",
   },
   {
     icon: Volume2,
+    number: "04",
     title: "Sistema de Áudio",
     subtitle: "Notificações Inteligentes",
     description: "Alertas de voz precisos no momento exato de cada evento",
     color: "from-green-500 to-emerald-500",
-    position: "bottom",
+    borderColor: "border-green-300",
   },
 ]
 
 export function HowItWorks() {
   const { theme } = useTheme()
-  const s = theme === "blue"
-    ? {
-        sectionBg: "from-gray-50 via-blue-50 to-purple-50",
-        orb1: "bg-blue-200",
-        orb2: "bg-purple-200",
-        borderMain: "border-blue-200",
-        arrow1: "from-red-400 to-blue-400",
-        arrow2: "from-blue-400 to-purple-400",
-        arrow3: "from-blue-400 to-green-400",
-        stackGrad: "from-blue-600 to-indigo-600",
-      }
-    : {
-        sectionBg: "from-gray-50 via-rose-50 to-purple-50",
-        orb1: "bg-rose-200",
-        orb2: "bg-purple-200",
-        borderMain: "border-pink-200",
-        arrow1: "from-red-400 to-rose-400",
-        arrow2: "from-rose-400 to-purple-400",
-        arrow3: "from-rose-400 to-green-400",
-        stackGrad: "from-pink-600 to-rose-600",
-      }
-  return (
-    <section className={`py-20 bg-gradient-to-br ${s.sectionBg} relative overflow-hidden`}>
-      {/* Animated background */}
-      <div className="absolute inset-0">
-        <motion.div
-          className={`absolute top-20 left-20 w-96 h-96 ${s.orb1} rounded-full mix-blend-multiply filter blur-3xl opacity-20`}
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0],
-          }}
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className={`absolute bottom-20 right-20 w-96 h-96 ${s.orb2} rounded-full mix-blend-multiply filter blur-3xl opacity-20`}
-          animate={{
-            scale: [1, 1.3, 1],
-            x: [0, -50, 0],
-          }}
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-        />
-      </div>
+  
+  const arrowColor = theme === "blue" 
+    ? "from-blue-400 to-indigo-400" 
+    : "from-pink-400 to-rose-400"
 
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Header */}
+  return (
+    <section className="py-24 bg-white relative overflow-hidden">
+      {/* Header */}
+      <div className="container mx-auto px-6 md:px-12 relative z-10">
         <motion.div
-          className="text-center mb-16"
+          className="text-center mb-20"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -104,166 +64,128 @@ export function HowItWorks() {
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Como Funciona
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Arquitetura técnica simples e poderosa
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            Fluxo simplificado de ponta a ponta
           </p>
         </motion.div>
 
-        {/* Architecture Diagram */}
-        <div className="max-w-6xl mx-auto">
-          {/* Top Row - Dota 2 */}
-          <motion.div
-            className="flex justify-center mb-8"
-            initial={{ opacity: 0, y: -30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <div className="bg-white rounded-3xl p-8 shadow-2xl border-2 border-red-200 max-w-md w-full">
-              <div className="flex items-center gap-4 mb-4">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${architecture[0].color} flex items-center justify-center shadow-lg`}>
-                  <Gamepad2 className="w-8 h-8 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900">{architecture[0].title}</h3>
-                  <p className="text-sm text-gray-600 font-semibold">{architecture[0].subtitle}</p>
-                </div>
-              </div>
-              <p className="text-gray-700">{architecture[0].description}</p>
-            </div>
-          </motion.div>
+        {/* Horizontal Flow */}
+        <div className="max-w-7xl mx-auto">
+          {/* Desktop horizontal */}
+          <div className="hidden lg:flex items-center justify-between gap-4">
+            {steps.map((step, index) => (
+              <div key={index} className="flex items-center flex-1">
+                {/* Step Card */}
+                <motion.div
+                  className="flex-1"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                >
+                  <div className={`group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 ${step.borderColor}`}>
+                    {/* Number Badge */}
+                    <div className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 text-white font-black flex items-center justify-center text-sm shadow-lg">
+                      {step.number}
+                    </div>
 
-          {/* Arrow Down */}
-          <motion.div
-            className="flex justify-center mb-8"
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <div className={`w-12 h-12 bg-gradient-to-br ${s.arrow1} rounded-full flex items-center justify-center shadow-lg`}>
-              <ArrowRight className="w-6 h-6 text-white rotate-90" />
-            </div>
-          </motion.div>
+                    {/* Icon */}
+                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center mb-4 shadow-md group-hover:scale-110 transition-transform duration-300`}>
+                      <step.icon className="w-7 h-7 text-white" />
+                    </div>
 
-          {/* Middle Row - Backend Go */}
-          <motion.div
-            className="flex justify-center mb-8"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <div className={`bg-white rounded-3xl p-8 shadow-2xl border-2 ${s.borderMain} max-w-md w-full relative`}>
-              {/* Badge de performance */}
-              <div className="absolute -top-4 -right-4 bg-gradient-to-br from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full font-bold text-sm shadow-lg flex items-center gap-2">
-                <Zap className="w-4 h-4" />
-                Ultra Rápido
-              </div>
-              
-              <div className="flex items-center gap-4 mb-4">
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${architecture[1].color} flex items-center justify-center shadow-lg`}>
-                  <Server className="w-8 h-8 text-white" />
-                </div>
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900">{architecture[1].title}</h3>
-                  <p className="text-sm text-gray-600 font-semibold">{architecture[1].subtitle}</p>
-                </div>
-              </div>
-              <p className="text-gray-700">{architecture[1].description}</p>
-            </div>
-          </motion.div>
-
-          {/* Arrows Split */}
-          <motion.div
-            className="flex justify-center gap-32 mb-8"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
-          >
-            <div className={`w-12 h-12 bg-gradient-to-br ${s.arrow2} rounded-full flex items-center justify-center shadow-lg`}>
-              <ArrowRight className="w-6 h-6 text-white rotate-90" />
-            </div>
-            <div className={`w-12 h-12 bg-gradient-to-br ${s.arrow3} rounded-full flex items-center justify-center shadow-lg`}>
-              <ArrowRight className="w-6 h-6 text-white rotate-90" />
-            </div>
-          </motion.div>
-
-          {/* Bottom Row - Frontend & Audio */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {/* Frontend React */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <div className="bg-white rounded-3xl p-8 shadow-2xl border-2 border-purple-200 h-full">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${architecture[2].color} flex items-center justify-center shadow-lg`}>
-                    <Cpu className="w-8 h-8 text-white" />
+                    {/* Content */}
+                    <h3 className="text-xl font-bold text-gray-900 mb-1">{step.title}</h3>
+                    <p className="text-xs font-semibold text-gray-500 mb-3">{step.subtitle}</p>
+                    <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
                   </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900">{architecture[2].title}</h3>
-                    <p className="text-sm text-gray-600 font-semibold">{architecture[2].subtitle}</p>
+                </motion.div>
+
+                {/* Arrow */}
+                {index < steps.length - 1 && (
+                  <motion.div
+                    className="flex-shrink-0 mx-2"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: (index + 0.5) * 0.15 }}
+                  >
+                    <div className={`w-10 h-10 bg-gradient-to-r ${arrowColor} rounded-full flex items-center justify-center shadow-md`}>
+                      <ArrowRight className="w-5 h-5 text-white" />
+                    </div>
+                  </motion.div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Mobile/Tablet vertical */}
+          <div className="lg:hidden space-y-6">
+            {steps.map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <div className={`relative bg-white rounded-2xl p-6 shadow-lg border-2 ${step.borderColor}`}>
+                  <div className="absolute -top-3 -right-3 w-10 h-10 rounded-full bg-gradient-to-br from-slate-700 to-slate-900 text-white font-black flex items-center justify-center text-sm shadow-lg">
+                    {step.number}
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-md flex-shrink-0`}>
+                      <step.icon className="w-7 h-7 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-1">{step.title}</h3>
+                      <p className="text-xs font-semibold text-gray-500 mb-2">{step.subtitle}</p>
+                      <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
+                    </div>
                   </div>
                 </div>
-                <p className="text-gray-700">{architecture[2].description}</p>
-              </div>
-            </motion.div>
 
-            {/* Sistema de Áudio */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            >
-              <div className="bg-white rounded-3xl p-8 shadow-2xl border-2 border-green-200 h-full">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${architecture[3].color} flex items-center justify-center shadow-lg`}>
-                    <Volume2 className="w-8 h-8 text-white" />
+                {index < steps.length - 1 && (
+                  <div className="flex justify-center py-2">
+                    <div className={`w-8 h-8 bg-gradient-to-b ${arrowColor} rounded-full flex items-center justify-center`}>
+                      <ArrowRight className="w-4 h-4 text-white rotate-90" />
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900">{architecture[3].title}</h3>
-                    <p className="text-sm text-gray-600 font-semibold">{architecture[3].subtitle}</p>
-                  </div>
-                </div>
-                <p className="text-gray-700">{architecture[3].description}</p>
-              </div>
-            </motion.div>
+                )}
+              </motion.div>
+            ))}
           </div>
         </div>
 
-        {/* Tech Stack Info */}
+        {/* Tech Stack Badge */}
         <motion.div
-          className="mt-16 max-w-4xl mx-auto"
+          className="mt-20 max-w-5xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6 }}
         >
-          <div className={`bg-gradient-to-r ${s.stackGrad} rounded-3xl p-8 shadow-2xl text-white`}>
-            <div className="flex items-center justify-center gap-4 flex-wrap">
+          <div className={`bg-gradient-to-r ${theme === 'blue' ? 'from-blue-600 to-indigo-600' : 'from-pink-600 to-rose-600'} rounded-2xl p-8 shadow-xl`}>
+            <div className="flex items-center justify-center gap-6 flex-wrap text-white">
               <div className="text-center">
-                <p className="text-3xl font-black">Go</p>
-                <p className="text-sm opacity-90">Backend</p>
+                <p className="text-2xl font-black">Go</p>
+                <p className="text-xs opacity-80">Backend</p>
               </div>
-              <div className="text-4xl opacity-50">+</div>
+              <div className="text-2xl opacity-60">→</div>
               <div className="text-center">
-                <p className="text-3xl font-black">React</p>
-                <p className="text-sm opacity-90">Frontend</p>
+                <p className="text-2xl font-black">React</p>
+                <p className="text-xs opacity-80">Frontend</p>
               </div>
-              <div className="text-4xl opacity-50">+</div>
+              <div className="text-2xl opacity-60">→</div>
               <div className="text-center">
-                <p className="text-3xl font-black">TypeScript</p>
-                <p className="text-sm opacity-90">Type Safety</p>
+                <p className="text-2xl font-black">TypeScript</p>
+                <p className="text-xs opacity-80">Type Safety</p>
               </div>
-              <div className="text-4xl opacity-50">=</div>
+              <div className="text-2xl opacity-60">=</div>
               <div className="text-center">
-                <p className="text-3xl font-black">🚀</p>
-                <p className="text-sm opacity-90">Performance</p>
+                <p className="text-3xl">⚡</p>
+                <p className="text-xs opacity-80 font-semibold">Ultra Rápido</p>
               </div>
             </div>
           </div>

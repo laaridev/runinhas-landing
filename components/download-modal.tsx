@@ -85,14 +85,14 @@ export function DownloadModal({ open, onClose, downloadUrl }: Props) {
                         <div className="bg-blue-50 border-l-4 border-blue-500 p-3 rounded-r-lg">
                           <p className="text-xs font-semibold text-blue-900 mb-1">📦 Passo 1: Durante o download</p>
                           <p className="text-xs text-blue-800">
-                            Seu navegador pode bloquear o download. Clique em <strong>"Manter"</strong> ou <strong>"Manter mesmo assim"</strong> para continuar.
+                            Seu navegador pode bloquear o download. Clique em <strong>&quot;Manter&quot;</strong> ou <strong>&quot;Manter mesmo assim&quot;</strong> para continuar.
                           </p>
                         </div>
 
                         <div className="bg-purple-50 border-l-4 border-purple-500 p-3 rounded-r-lg">
                           <p className="text-xs font-semibold text-purple-900 mb-1">🛡️ Passo 2: ao executar pela primeira vez</p>
                           <p className="text-xs text-purple-800">
-                            O Windows SmartScreen vai bloquear. Clique em <strong>"Mais informações"</strong> e depois em <strong>"Executar assim mesmo"</strong>. 
+                            O Windows SmartScreen vai bloquear. Clique em <strong>&quot;Mais informações&quot;</strong> e depois em <strong>&quot;Executar assim mesmo&quot;</strong>. 
                             Isso acontece apenas na primeira vez!
                           </p>
                         </div>
