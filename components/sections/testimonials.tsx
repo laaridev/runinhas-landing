@@ -3,47 +3,48 @@
 import { motion } from "framer-motion"
 import { Star, Quote } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
+import Image from "next/image"
 
 const testimonials = [
   {
     name: "João Silva",
     rank: "Ancient 4",
-    avatar: "🎮",
+    avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=faces",
     content: "Melhorou meu rank em duas semanas! Agora pego todas as runas de poder e nunca erro o stack.",
     rating: 5,
   },
   {
     name: "Maria Costa",
     rank: "Divine 2",
-    avatar: "⚡",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces",
     content: "O app é leve, rápido e os alertas são perfeitos. Já virou parte do meu setup.",
     rating: 5,
   },
   {
     name: "Pedro Santos",
     rank: "Legend 3",
-    avatar: "🔥",
+    avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&fit=crop&crop=faces",
     content: "Posso focar só nas lutas. O Runinhas me lembra até da catapulta, é surreal.",
     rating: 5,
   },
   {
     name: "Ana Lima",
     rank: "Immortal",
-    avatar: "💎",
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=faces",
     content: "Como pro player, tempo é tudo. O Runinhas me dá aquela vantagem invisível que vence jogos.",
     rating: 5,
   },
   {
     name: "Carlos Oliveira",
     rank: "Crusader 4",
-    avatar: "🎯",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces",
     content: "Uso o modo grátis e já é completo. Nunca pensei que algo tão simples ajudaria tanto.",
     rating: 5,
   },
   {
     name: "Lucas Ferreira",
     rank: "Archon 2",
-    avatar: "🚀",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces",
     content: "A interface é linda e funcional. O aviso do stack me salvou várias vezes.",
     rating: 5,
   },
@@ -99,8 +100,13 @@ export function Testimonials() {
 
                   {/* Author */}
                   <div className="flex items-center gap-3 pt-4 border-t border-emerald-100">
-                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-2xl shadow-lg">
-                      {testimonial.avatar}
+                    <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-emerald-400 shadow-lg">
+                      <Image
+                        src={testimonial.avatar}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                      />
                     </div>
                     <div>
                       <p className="font-bold text-gray-900">

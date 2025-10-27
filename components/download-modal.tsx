@@ -53,56 +53,64 @@ export function DownloadModal({ open, onClose, downloadUrl }: Props) {
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
 
           {/* Centered container */}
-          <div className="fixed inset-0 grid place-items-center pointer-events-none">
+          <div className="fixed inset-0 grid place-items-center pointer-events-none p-4">
             <motion.div
               role="dialog"
               aria-modal="true"
               aria-label="Aviso do Windows SmartScreen"
-              className="w-[92%] max-w-2xl pointer-events-auto"
+              className="w-full max-w-2xl pointer-events-auto"
               initial={{ y: 18, opacity: 0, scale: 0.98 }}
               animate={{ y: 0, opacity: 1, scale: 1 }}
               exit={{ y: 18, opacity: 0, scale: 0.98 }}
               transition={{ type: "spring", stiffness: 200, damping: 22 }}
             >
               <div className={`rounded-2xl p-[1px] bg-gradient-to-br ${s.frame} shadow-2xl`}>
-                <div className="rounded-2xl bg-white/95 backdrop-blur-xl p-6 md:p-8">
-                  <div className="flex items-start gap-4">
-                    <div className={`w-12 h-12 rounded-xl grid place-items-center ${s.badge}`}>
-                      <ShieldAlert className="w-6 h-6" />
-                    </div>
+                <div className="rounded-2xl bg-white/95 backdrop-blur-xl p-5 md:p-6">
+                  <div className="flex items-start gap-3">
                     <div className="flex-1">
                       <div className="flex items-start justify-between gap-4">
                         <div>
-                          <h3 className="text-xl md:text-2xl font-bold text-gray-900">Antes de baixar: SmartScreen</h3>
-                          <p className="text-gray-600 mt-1">
-                            O Windows pode alertar sobre o runinhas. O app é seguro, só não foi verificado ainda.
+                          <h3 className="text-lg md:text-xl font-bold text-gray-900">✅ O Runinhas é 100% Seguro</h3>
+                          <p className="text-gray-600 mt-1.5 text-sm leading-relaxed">
+                            O Windows pode alertar porque o app ainda não tem certificado digital (custa caro!). 
+                            Mas fique tranquilo: <strong>o código é open source</strong> e você pode verificar tudo no GitHub.
                           </p>
                         </div>
-                        <button aria-label="Fechar" onClick={onClose} className="p-2 rounded-lg hover:bg-gray-100 transition">
-                          <X className="w-5 h-5 text-gray-500" />
+                        <button aria-label="Fechar" onClick={onClose} className="p-1.5 rounded-lg hover:bg-gray-100 transition">
+                          <X className="w-4 h-4 text-gray-500" />
                         </button>
                       </div>
 
-                      <div className="mt-6 grid gap-3 text-sm">
-                        <div className="flex items-start gap-3">
-                          <Info className="w-5 h-5 mt-0.5 text-gray-600" />
-                          <p className="text-gray-700">O seu navegador pode impedir que o download, basta clicar em “Manter”.</p>
+                      <div className="mt-4 space-y-2.5">
+                        <div className="bg-blue-50 border-l-4 border-blue-500 p-3 rounded-r-lg">
+                          <p className="text-xs font-semibold text-blue-900 mb-1">📦 Passo 1: Durante o download</p>
+                          <p className="text-xs text-blue-800">
+                            Seu navegador pode bloquear o download. Clique em <strong>"Manter"</strong> ou <strong>"Manter mesmo assim"</strong> para continuar.
+                          </p>
                         </div>
-                        <div className="flex items-start gap-3">
-                          <Info className="w-5 h-5 mt-0.5 text-gray-600" />
-                          <p className="text-gray-700">Após baixar, na primeira execução o Windows Smart Screen irá bloquear a execução do programa, basta clicar em  <b>Mais informações</b> → <b>Executar assim mesmo</b>.</p>
+
+                        <div className="bg-purple-50 border-l-4 border-purple-500 p-3 rounded-r-lg">
+                          <p className="text-xs font-semibold text-purple-900 mb-1">🛡️ Passo 2: ao executar pela primeira vez</p>
+                          <p className="text-xs text-purple-800">
+                            O Windows SmartScreen vai bloquear. Clique em <strong>"Mais informações"</strong> e depois em <strong>"Executar assim mesmo"</strong>. 
+                            Isso acontece apenas na primeira vez!
+                          </p>
                         </div>
-                        <div className="flex items-start gap-3">
-                          <Info className="w-5 h-5 mt-0.5 text-gray-600" />
-                          <p className="text-gray-700">Todo o código da versão FREE do runinhas está disponível no github para você analisar.</p>
+
+                        <div className="bg-green-50 border-l-4 border-green-500 p-3 rounded-r-lg">
+                          <p className="text-xs font-semibold text-green-900 mb-1">🔓 Por que isso acontece?</p>
+                          <p className="text-xs text-green-800">
+                            Certificados digitais custam centenas de dólares por ano. Como o Runinhas é 100% gratuito, optamos por manter o projeto open source 
+                            para você ter total transparência do código. <strong>Nenhum dado seu é coletado.</strong>
+                          </p>
                         </div>
                       </div>
 
-                      <div className="mt-6 flex flex-col sm:flex-row gap-3">
-                        <Button onClick={handleDownload} className={`bg-gradient-to-r ${s.accent} text-white shadow-xl hover:shadow-2xl`} size="lg">
-                          <DownloadIcon className="w-5 h-5 mr-2" /> Baixar runinhas.exe
+                      <div className="mt-5 flex flex-col sm:flex-row gap-2.5">
+                        <Button onClick={handleDownload} className={`bg-gradient-to-r ${s.accent} text-white shadow-xl hover:shadow-2xl`} size="default">
+                          <DownloadIcon className="w-4 h-4 mr-2" /> Download
                         </Button>
-                        <Button onClick={onClose} variant="ghost" size="lg">Fechar</Button>
+                        <Button onClick={onClose} variant="ghost" size="default">Fechar</Button>
                       </div>
                     </div>
                   </div>
