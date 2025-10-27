@@ -158,38 +158,6 @@ export function HowItWorks() {
           </div>
         </div>
 
-        {/* Tech Stack Badge */}
-        <motion.div
-          className="mt-20 max-w-5xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-        >
-          <div className={`bg-gradient-to-r ${theme === 'blue' ? 'from-blue-600 to-indigo-600' : 'from-pink-600 to-rose-600'} rounded-2xl p-8 shadow-xl`}>
-            <div className="flex items-center justify-center gap-6 flex-wrap text-white">
-              <div className="text-center">
-                <p className="text-2xl font-black">Go</p>
-                <p className="text-xs opacity-80">Backend</p>
-              </div>
-              <div className="text-2xl opacity-60">→</div>
-              <div className="text-center">
-                <p className="text-2xl font-black">React</p>
-                <p className="text-xs opacity-80">Frontend</p>
-              </div>
-              <div className="text-2xl opacity-60">→</div>
-              <div className="text-center">
-                <p className="text-2xl font-black">TypeScript</p>
-                <p className="text-xs opacity-80">Type Safety</p>
-              </div>
-              <div className="text-2xl opacity-60">=</div>
-              <div className="text-center">
-                <p className="text-3xl">⚡</p>
-                <p className="text-xs opacity-80 font-semibold">Ultra Rápido</p>
-              </div>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   )

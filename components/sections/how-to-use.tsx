@@ -137,21 +137,6 @@ export function HowToUse() {
             )
           })}
         </div>
-
-        {/* Bottom CTA */}
-        <motion.div
-          className="text-center mt-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.8 }}
-        >
-          <div className="inline-block glass px-8 py-4 rounded-2xl">
-            <p className="text-lg text-gray-700 font-semibold">
-              Simples assim! Nunca mais perca uma runa.
-            </p>
-          </div>
-        </motion.div>
       </div>
     </section>
   )
