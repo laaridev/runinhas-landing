@@ -5,9 +5,14 @@ import { Download, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { useTheme } from "@/contexts/theme-context"
+import { useState } from "react"
+import { DownloadModal } from "@/components/download-modal"
 
 export function FinalCTA() {
   const { theme } = useTheme()
+  const [downloadOpen, setDownloadOpen] = useState(false)
+  const repoUrl = "https://github.com/laaridev/runinhas"
+  const downloadUrl = "https://github.com/laaridev/runinhas/releases/download/v1.0.0/runinhas.exe"
 
   const styles = {
     blue: {
@@ -111,6 +116,7 @@ export function FinalCTA() {
             transition={{ delay: 0.5 }}
           >
             <Button
+              onClick={() => setDownloadOpen(true)}
               size="lg"
               className={`bg-white ${s.buttonText} hover:bg-white/90 hover:scale-105 shadow-2xl group`}
             >
@@ -118,6 +124,7 @@ export function FinalCTA() {
               Baixe agora
             </Button>
             <Button
+              onClick={() => window.open(repoUrl, "_blank", "noopener,noreferrer")}
               size="lg"
               variant="outline"
               className="border-2 border-white text-white hover:bg-white/10"
@@ -126,6 +133,7 @@ export function FinalCTA() {
               Ver no GitHub
             </Button>
           </motion.div>
+          <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} downloadUrl={downloadUrl} />
         </motion.div>
       </div>
     </section>

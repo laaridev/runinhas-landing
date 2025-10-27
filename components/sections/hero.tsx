@@ -6,9 +6,14 @@ import { Button } from "@/components/ui/button"
 import { useTheme } from "@/contexts/theme-context"
 
 import Image from "next/image"
+import { useState } from "react"
+import { DownloadModal } from "@/components/download-modal"
 
 export function Hero() {
   const { theme, toggleTheme } = useTheme()
+  const [downloadOpen, setDownloadOpen] = useState(false)
+  const repoUrl = "https://github.com/laaridev/runinhas"
+  const downloadUrl = "https://github.com/laaridev/runinhas/releases/download/v1.0.0/runinhas.exe"
   
   const themeColors = {
     blue: {
@@ -48,7 +53,7 @@ export function Hero() {
   const logoDuration = letterBaseDuration + letterDelay * (letters.length - 1)
 
   return (
-    <section className={`relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br ${colors.bg}`}>
+    <section className={`relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br ${colors.bg} py-12 lg:py-16`}>
       {/* Animated background orbs */}
       <div className="absolute inset-0 overflow-hidden">
         <motion.div
@@ -121,7 +126,7 @@ export function Hero() {
         </div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-8 sm:px-10 md:px-12 lg:px-16 xl:px-24 max-w-7xl relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           {/* Left side - Content */}
           <motion.div
@@ -139,7 +144,7 @@ export function Hero() {
             >
               <div className="flex items-baseline justify-center lg:justify-start gap-3 md:gap-4">
                 <motion.h1
-                  className={`text-7xl md:text-8xl lg:text-9xl font-black bg-gradient-to-r ${colors.text} bg-clip-text text-transparent tracking-tight leading-none select-none`}
+                  className={`text-3xl md:text-4xl lg:text-5xl font-black bg-gradient-to-r ${colors.text} bg-clip-text text-transparent tracking-tight leading-none select-none`}
                   whileHover={{ scale: 1.02 }}
                 >
                   {letters.map((ch, i) => (
@@ -154,7 +159,7 @@ export function Hero() {
                   ))}
                 </motion.h1>
                 <motion.div
-                  className="relative w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16"
+                  className="relative w-6 h-6 md:w-8 md:h-8 lg:w-9 lg:h-9"
                   animate={{ y: [-2, 2], rotate: [-2, 2], scale: [1, 1.03, 1], opacity: [1, 0.4, 1] }}
                   transition={{ duration: logoDuration, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
                 >
@@ -190,11 +195,21 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
             >
-              <Button variant="gradient" size="lg" className={`group bg-gradient-to-r ${colors.button} shadow-inner ring-1 ring-white/50 shadow-xl`}>
+              <Button
+                onClick={() => setDownloadOpen(true)}
+                variant="gradient"
+                size="lg"
+                className={`group bg-gradient-to-r ${colors.button} shadow-inner ring-1 ring-white/50 shadow-xl`}
+              >
                 <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
                 Baixe Grátis v1.0.0
               </Button>
-              <Button variant="outline" size="lg" className={`group border-2 ${colors.buttonOutline} bg-white/30 backdrop-blur-md hover:bg-white/40 ring-1 ring-inset ring-white/40` }>
+              <Button
+                onClick={() => window.open(repoUrl, "_blank", "noopener,noreferrer")}
+                variant="outline"
+                size="lg"
+                className={`group border-2 ${colors.buttonOutline} bg-white/30 backdrop-blur-md hover:bg-white/40 ring-1 ring-inset ring-white/40` }
+              >
                 <Github className="w-5 h-5 mr-2" />
                 Ver no GitHub
               </Button>
@@ -305,6 +320,7 @@ export function Hero() {
           />
         </div>
       </motion.div>
+      <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} downloadUrl={downloadUrl} />
     </section>
   )
 }
