@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   title: "Runinhas - Nunca Mais Perca uma Runa no Dota 2",
   description: "O assistente inteligente que te avisa de todos eventos importantes do Dota 2. 100% Grátis, Zero FPS Impact, Open Source.",
   authors: [{ name: "Runinhas Team" }],
+  icons: {
+    icon: "/favicon.ico",
+  },
   keywords: "dota 2, runas, rune timer, dota assistant, gaming, esports, stack timing, dota 2 helper",
   openGraph: {
     title: "Runinhas - Nunça Mais Perca uma Runa no Dota 2",
