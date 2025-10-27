@@ -191,31 +191,6 @@ export function Testimonials() {
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom Stats */}
-        <motion.div
-          className="mt-16 text-center"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.6 }}
-        >
-          <div className="inline-flex items-center gap-8 bg-white/60 backdrop-blur px-8 py-4 rounded-2xl shadow-lg border border-gray-200">
-            <div className="text-center">
-              <p className="text-3xl font-black text-gray-900">4.9</p>
-              <div className="flex gap-0.5 mt-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                ))}
-              </div>
-            </div>
-            <div className="h-12 w-px bg-gray-300" />
-            <div className="text-center">
-              <p className="text-3xl font-black text-gray-900">500+</p>
-              <p className="text-xs text-gray-600 font-semibold">Jogadores Ativos</p>
-            </div>
-          </div>
-        </motion.div>
       </div>
     </section>
   )
