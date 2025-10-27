@@ -101,18 +101,7 @@ export function Security() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <motion.div
-            className="inline-flex mb-6"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-          >
-            <Badge variant="glass" className={`text-base px-6 py-3 bg-white/80 backdrop-blur-sm border-2 ${s.badgeBorder}`}>
-              <Shield className={`w-5 h-5 mr-2 ${s.badgeIcon}`} />
-              Totalmente Seguro
-            </Badge>
-          </motion.div>
+
 
           <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             O Runinhas é seguro?

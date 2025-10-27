@@ -27,7 +27,7 @@ const features = [
   {
     icon: Package,
     title: "Stack Timing Automático",
-    description: "Lembretes perfeitos aos :53 — nunca mais perca um stack de neutrals",
+    description: "Lembra quanto tempo falta para fazer stacks de neutrals",
     color: "from-purple-500 to-pink-500",
   },
   {
