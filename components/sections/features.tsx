@@ -1,6 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useTheme } from "@/contexts/theme-context" 
 import {
   Droplet,
   Zap,
@@ -93,8 +94,40 @@ const features = [
 ]
 
 export function Features() {
+  const { theme } = useTheme()
+
+  // Define styles for the section background, text, and cards
+  const themeStyles = {
+    blue: {
+      sectionBg: "bg-white",
+      title: "text-slate-900",
+      subtitle: "text-slate-600",
+      cardBg: "bg-white/80 border-slate-100",
+      cardTitle: "text-slate-900",
+      cardText: "text-slate-600",
+    },
+    pink: {
+      sectionBg: "bg-pink-50/30", 
+      title: "text-pink-950",
+      subtitle: "text-pink-800",
+      cardBg: "bg-white/80 border-pink-100",
+      cardTitle: "text-pink-900",
+      cardText: "text-pink-700",
+    },
+    dark: {
+      sectionBg: "bg-slate-950", // Dark background
+      title: "text-white",
+      subtitle: "text-slate-400",
+      cardBg: "bg-slate-900/50 border-slate-800", // Dark transparent card
+      cardTitle: "text-slate-100",
+      cardText: "text-slate-400",
+    }
+  }
+
+  const styles = themeStyles[theme] || themeStyles.blue
+
   return (
-    <section className="py-20 bg-white">
+    <section className={`py-20 transition-colors duration-500 ${styles.sectionBg}`}>
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-16"
@@ -103,10 +136,10 @@ export function Features() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className={`text-4xl lg:text-5xl font-bold mb-4 transition-colors duration-500 ${styles.title}`}>
             Recursos Poderosos
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className={`text-xl max-w-3xl mx-auto transition-colors duration-500 ${styles.subtitle}`}>
             Tudo que você precisa para dominar os timings e subir de rank
           </p>
         </motion.div>
@@ -122,17 +155,17 @@ export function Features() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
               >
-                <Card className="h-full hover:scale-105 transition-transform duration-300 bg-white/80 backdrop-blur-sm border-2 border-gray-100">
+                <Card className={`h-full hover:-translate-y-2 transition-all duration-300 backdrop-blur-sm border-2 ${styles.cardBg}`}>
                   <CardContent className="p-6">
                     <div
                       className={`w-12 h-12 rounded-xl bg-gradient-to-r ${feature.color} flex items-center justify-center mb-4 shadow-lg`}
                     >
                       <Icon className="w-6 h-6 text-white" />
                     </div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">
+                    <h3 className={`text-xl font-bold mb-2 transition-colors duration-500 ${styles.cardTitle}`}>
                       {feature.title}
                     </h3>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className={`leading-relaxed transition-colors duration-500 ${styles.cardText}`}>
                       {feature.description}
                     </p>
                   </CardContent>

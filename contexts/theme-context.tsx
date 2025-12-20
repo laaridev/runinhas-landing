@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, ReactNode } from "react"
 
-type Theme = "blue" | "pink"
+type Theme = "blue" | "pink" | "dark"
 
 interface ThemeContextType {
   theme: Theme
@@ -15,7 +15,16 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("blue")
 
   const toggleTheme = () => {
-    setTheme((prev) => (prev === "blue" ? "pink" : "blue"))
+    setTheme((prev) => {
+      switch (prev) {
+        case "blue":
+          return "pink"
+        case "pink":
+          return "dark"
+        case "dark":
+          return "blue"
+      }
+    })
   }
 
   return (
