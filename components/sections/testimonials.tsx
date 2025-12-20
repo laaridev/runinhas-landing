@@ -65,29 +65,56 @@ const testimonials = [
 export function Testimonials() {
   const { theme } = useTheme()
   
-  const themeColors = theme === "blue"
-    ? {
-        gradient: "from-blue-50 to-indigo-50",
-        accent: "from-blue-500 to-indigo-500",
-        ring: "ring-blue-400",
-        text: "text-blue-600",
-        bg: "bg-blue-50/50",
-        border: "border-blue-200",
-      }
-    : {
-        gradient: "from-pink-50 to-rose-50",
-        accent: "from-pink-500 to-rose-500",
-        ring: "ring-pink-400",
-        text: "text-pink-600",
-        bg: "bg-pink-50/50",
-        border: "border-pink-200",
-      }
+  // Define full style objects for all 3 themes
+  const themeStyles = {
+    blue: {
+      gradient: "from-blue-50 to-indigo-50",
+      accent: "from-blue-500 to-indigo-500",
+      ring: "ring-blue-400",
+      textAccent: "text-blue-600",
+      cardBg: "bg-white",
+      cardBorder: "border-gray-200 hover:border-blue-200",
+      cardText: "text-gray-700",
+      title: "text-gray-900",
+      subtitle: "text-gray-600",
+      blob: "from-white/40", // Light blob
+      highlightBorder: "border-blue-200",
+    },
+    pink: {
+      gradient: "from-pink-50 to-rose-50",
+      accent: "from-pink-500 to-rose-500",
+      ring: "ring-pink-400",
+      textAccent: "text-pink-600",
+      cardBg: "bg-white",
+      cardBorder: "border-gray-200 hover:border-pink-200",
+      cardText: "text-gray-700",
+      title: "text-gray-900",
+      subtitle: "text-gray-600",
+      blob: "from-white/40", // Light blob
+      highlightBorder: "border-pink-200",
+    },
+    dark: {
+      gradient: "from-slate-950 via-gray-900 to-black",
+      accent: "from-blue-600 to-indigo-600",
+      ring: "ring-indigo-500",
+      textAccent: "text-indigo-400", // Lighter text for dark bg
+      cardBg: "bg-slate-900", // Dark card
+      cardBorder: "border-slate-800 hover:border-slate-700",
+      cardText: "text-slate-300", // Light gray text
+      title: "text-white",
+      subtitle: "text-slate-400",
+      blob: "from-blue-900/20", // Dark subtle blob
+      highlightBorder: "border-indigo-500/50",
+    }
+  }
+
+  const s = themeStyles[theme] || themeStyles.blue
 
   return (
-    <section className={`py-24 bg-gradient-to-br ${themeColors.gradient} relative overflow-hidden`}>
-      {/* Decorative element */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-white/40 to-transparent rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr from-white/40 to-transparent rounded-full blur-3xl" />
+    <section className={`py-24 bg-gradient-to-br ${s.gradient} relative overflow-hidden transition-colors duration-700`}>
+      {/* Decorative element - Transitions from White (light) to Dark Blue (Dark) */}
+      <div className={`absolute top-0 right-0 w-96 h-96 bg-gradient-to-br ${s.blob} to-transparent rounded-full blur-3xl transition-colors duration-700`} />
+      <div className={`absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-tr ${s.blob} to-transparent rounded-full blur-3xl transition-colors duration-700`} />
 
       <div className="container mx-auto px-6 md:px-12 relative z-10">
         {/* Header */}
@@ -104,15 +131,15 @@ export function Testimonials() {
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true }}
           >
-            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${themeColors.accent} text-white text-sm font-semibold shadow-lg`}>
+            <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r ${s.accent} text-white text-sm font-semibold shadow-lg transition-all duration-500`}>
               <Star className="w-4 h-4 fill-white" />
               Avaliações 5 estrelas
             </div>
           </motion.div>
-          <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className={`text-4xl lg:text-5xl font-bold mb-4 transition-colors duration-500 ${s.title}`}>
             O Que Os Jogadores Dizem
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className={`text-xl max-w-2xl mx-auto transition-colors duration-500 ${s.subtitle}`}>
             Histórias reais de jogadores que melhoraram seu desempenho
           </p>
         </motion.div>
@@ -129,15 +156,17 @@ export function Testimonials() {
               className="h-full"
             >
               <div 
-                className={`group relative h-full bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-2 ${
-                  testimonial.highlight 
-                    ? `${themeColors.border} bg-gradient-to-br from-white to-${theme === 'blue' ? 'blue' : 'pink'}-50/30` 
-                    : 'border-gray-200 hover:border-gray-300'
-                }`}
+                className={`group relative h-full rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 border-2
+                  ${s.cardBg}
+                  ${testimonial.highlight 
+                    ? `${s.highlightBorder} ${theme === 'dark' ? 'bg-slate-800' : ''}` 
+                    : s.cardBorder
+                  }
+                `}
               >
                 {/* Highlight badge */}
                 {testimonial.highlight && (
-                  <div className={`absolute -top-3 -right-3 px-3 py-1 rounded-full bg-gradient-to-r ${themeColors.accent} text-white text-xs font-bold shadow-lg flex items-center gap-1`}>
+                  <div className={`absolute -top-3 -right-3 px-3 py-1 rounded-full bg-gradient-to-r ${s.accent} text-white text-xs font-bold shadow-lg flex items-center gap-1`}>
                     <Star className="w-3 h-3 fill-white" />
                     Destaque
                   </div>
@@ -145,7 +174,7 @@ export function Testimonials() {
 
                 {/* Quote icon */}
                 <div className="mb-4">
-                  <Quote className={`w-10 h-10 ${themeColors.text} opacity-40`} />
+                  <Quote className={`w-10 h-10 ${s.textAccent} opacity-40 transition-colors duration-500`} />
                 </div>
 
                 {/* Rating */}
@@ -159,13 +188,13 @@ export function Testimonials() {
                 </div>
 
                 {/* Content */}
-                <p className="text-gray-700 mb-6 leading-relaxed text-sm md:text-base">
+                <p className={`mb-6 leading-relaxed text-sm md:text-base transition-colors duration-500 ${s.cardText}`}>
                   &ldquo;{testimonial.content}&rdquo;
                 </p>
 
                 {/* Author */}
-                <div className="flex items-center gap-3 pt-4 border-t border-gray-100">
-                  <div className={`relative w-14 h-14 rounded-full overflow-hidden ring-2 ${themeColors.ring} shadow-md group-hover:scale-105 transition-transform duration-300`}>
+                <div className={`flex items-center gap-3 pt-4 border-t ${theme === 'dark' ? 'border-slate-800' : 'border-gray-100'} transition-colors duration-500`}>
+                  <div className={`relative w-14 h-14 rounded-full overflow-hidden ring-2 ${s.ring} shadow-md group-hover:scale-105 transition-all duration-300`}>
                     <Image
                       src={testimonial.avatar}
                       alt={testimonial.name}
@@ -175,14 +204,14 @@ export function Testimonials() {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-1.5">
-                      <p className="font-bold text-gray-900 text-sm">
+                      <p className={`font-bold text-sm transition-colors duration-500 ${s.title}`}>
                         {testimonial.name}
                       </p>
                       {testimonial.verified && (
-                        <CheckCircle2 className={`w-4 h-4 ${themeColors.text}`} />
+                        <CheckCircle2 className={`w-4 h-4 ${s.textAccent}`} />
                       )}
                     </div>
-                    <p className={`text-xs ${themeColors.text} font-semibold`}>
+                    <p className={`text-xs font-semibold transition-colors duration-500 ${s.textAccent}`}>
                       {testimonial.rank}
                     </p>
                   </div>

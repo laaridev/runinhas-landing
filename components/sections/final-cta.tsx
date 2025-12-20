@@ -27,6 +27,12 @@ export function FinalCTA() {
       buttonText: "text-pink-600",
       logo: "/logo-runinha-pink.svg",
     },
+    dark: {
+      gradient: "from-gray-900 via-slate-900 to-black",
+      textTint: "text-gray-100",
+      buttonText: "text-gray-200",
+      logo: "/logo-runinha-blue.svg",
+    }
   } as const
 
   const s = styles[theme]
@@ -118,7 +124,7 @@ export function FinalCTA() {
             <Button
               onClick={() => setDownloadOpen(true)}
               size="lg"
-              className={`bg-white ${s.buttonText} hover:bg-white/90 hover:scale-105 shadow-2xl group`}
+              className={`bg-white ${s.buttonText} hover:bg-white/90 text-black hover:scale-105 shadow-2xl group`}
             >
               <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
               Baixe agora
