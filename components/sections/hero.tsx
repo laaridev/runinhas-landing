@@ -1,16 +1,20 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Download, Github, Palette, Moon, Sun } from "lucide-react" // Added Moon/Sun icons
+import { Download, Github, Palette, Moon, Sun } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { useTheme } from "@/contexts/theme-context"
+import { useLanguage } from "@/contexts/language-context" // <--- Import Language Context
+import { LanguageToggle } from "@/components/language-toggle" // <--- Import Toggle Button
 import Image from "next/image"
 import { useState } from "react"
 import { DownloadModal } from "@/components/download-modal"
 
 export function Hero() {
   const { theme, toggleTheme } = useTheme()
+  const { t } = useLanguage() // <--- This gives us the dictionary based on current language
   const [downloadOpen, setDownloadOpen] = useState(false)
+  
   const repoUrl = "https://github.com/laaridev/runinhas"
   const downloadUrl = "https://github.com/laaridev/runinhas/releases/download/v1.0.0/runinhas.exe"
 
@@ -21,7 +25,7 @@ export function Hero() {
       button: "from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700",
       buttonOutline: "border-blue-600 text-blue-600 hover:bg-blue-50",
       icon: "text-blue-600",
-      logo: "/logo-runinha-blue.svg", // Make sure this path is correct
+      logo: "/logo-runinha-blue.svg",
     },
     pink: {
       bg: "from-pink-50 via-rose-50 to-purple-50",
@@ -33,66 +37,62 @@ export function Hero() {
     },
     dark: {
       bg: "from-slate-900 via-gray-900 to-black",
-      text: "from-blue-400 via-indigo-400 to-purple-400", // Brightened text for contrast
+      text: "from-blue-400 via-indigo-400 to-purple-400",
       button: "from-slate-700 to-gray-800 hover:from-slate-600 hover:to-gray-700",
       buttonOutline: "border-gray-400 text-gray-200 hover:bg-gray-800/50",
       icon: "text-gray-100",
-      logo: "/logo-runinha-blue.svg", // Ideally, use a white version here if you have one
+      logo: "/logo-runinha-blue.svg", 
     }
   }
 
-  // Fallback to blue if theme is undefined/unknown
   const colors = themeColors[theme] || themeColors.blue
 
-  // Helper to calculate toggle button position
   const getTogglePosition = () => {
     if (theme === 'blue') return 4;
-    if (theme === 'pink') return 34; // Middle position
-    return 64; // Dark position
+    if (theme === 'pink') return 34;
+    return 64;
   }
 
   return (
     <section className={`relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br ${colors.bg} transition-colors duration-700`}>
       
-      {/* --- FIX 1: CHANGED ABSOLUTE TO FIXED & ADDED Z-INDEX --- */}
-      <div className="fixed top-8 right-8 z-50 flex items-center gap-3">
-        <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white/80' : 'text-slate-700'}`}>
-          Tema
-        </span>
+      <div className="fixed top-8 right-8 z-50 flex items-center gap-4">
         
-        {/* Toggle Button Container */}
-        <motion.button
-          onClick={toggleTheme}
-          // Made width larger (w-24) to fit 3 states
-          className={`relative w-24 h-10 rounded-full border border-white/20 backdrop-blur-md shadow-lg overflow-hidden ${theme === 'dark' ? 'bg-black/40' : 'bg-white/70'}`}
-          whileTap={{ scale: 0.96 }}
-          title="Alternar tema"
-        >
-          {/* Background Gradient for the button */}
-          <div className={`absolute inset-0 bg-gradient-to-r transition-opacity duration-500
-            ${theme === 'blue' ? 'from-blue-500/20 to-purple-500/20 opacity-100' : 'opacity-0'}
-            ${theme === 'pink' ? 'from-pink-500/20 to-rose-500/20 opacity-100' : ''}
-          `} />
+        <LanguageToggle />
 
-          {/* Dots representing the positions */}
-          <div className="absolute inset-0 flex items-center justify-between px-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400/50" />
-            <span className="w-1.5 h-1.5 rounded-full bg-pink-400/50" />
-            <span className="w-1.5 h-1.5 rounded-full bg-slate-400/50" />
-          </div>
-
-          {/* The Sliding Knob */}
-          <motion.div
-            className="absolute top-1 w-8 h-8 rounded-full bg-white shadow-md grid place-items-center"
-            animate={{ x: getTogglePosition() }}
-            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+        <div className="flex items-center gap-3">
+          <span className={`text-sm font-medium ${theme === 'dark' ? 'text-white/80' : 'text-slate-700'}`}>
+            {t.hero.theme}
+          </span>
+          
+          <motion.button
+            onClick={toggleTheme}
+            className={`relative w-24 h-10 rounded-full border border-white/20 backdrop-blur-md shadow-lg overflow-hidden ${theme === 'dark' ? 'bg-black/40' : 'bg-white/70'}`}
+            whileTap={{ scale: 0.96 }}
+            title="Alternar tema"
           >
-             {/* Icon changes based on theme */}
-             {theme === 'blue' && <Palette className="w-4 h-4 text-blue-500" />}
-             {theme === 'pink' && <Palette className="w-4 h-4 text-pink-500" />}
-             {theme === 'dark' && <Moon className="w-4 h-4 text-slate-800" />}
-          </motion.div>
-        </motion.button>
+            <div className={`absolute inset-0 bg-gradient-to-r transition-opacity duration-500
+              ${theme === 'blue' ? 'from-blue-500/20 to-purple-500/20 opacity-100' : 'opacity-0'}
+              ${theme === 'pink' ? 'from-pink-500/20 to-rose-500/20 opacity-100' : ''}
+            `} />
+
+            <div className="absolute inset-0 flex items-center justify-between px-3">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400/50" />
+              <span className="w-1.5 h-1.5 rounded-full bg-pink-400/50" />
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-400/50" />
+            </div>
+
+            <motion.div
+              className="absolute top-1 w-8 h-8 rounded-full bg-white shadow-md grid place-items-center"
+              animate={{ x: getTogglePosition() }}
+              transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            >
+               {theme === 'blue' && <Palette className="w-4 h-4 text-blue-500" />}
+               {theme === 'pink' && <Palette className="w-4 h-4 text-pink-500" />}
+               {theme === 'dark' && <Moon className="w-4 h-4 text-slate-800" />}
+            </motion.div>
+          </motion.button>
+        </div>
       </div>
 
       {/* Main content */}
@@ -106,7 +106,6 @@ export function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            {/* Animated glow - Updated specifically for Dark Mode visibility */}
             <motion.div
               className={`absolute inset-0 rounded-full blur-3xl opacity-0
                 ${theme === 'blue' ? 'bg-gradient-to-r from-blue-400 to-indigo-400' : ''}
@@ -151,14 +150,13 @@ export function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* Right: Text & CTAs */}
           <div className="text-center lg:text-left space-y-8">
             <div className="space-y-4">
               <h1 className={`text-6xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r ${colors.text} bg-clip-text text-transparent tracking-tight leading-none`}>
-                Runinhas
+                {t.hero.title}
               </h1>
               <p className={`text-xl md:text-2xl max-w-2xl mx-auto lg:mx-0 ${theme === 'dark' ? 'text-gray-300' : 'text-slate-600'}`}>
-                O assistente de voz que te lembra de todos os tempos essenciais do Dota 2.
+                {t.hero.subtitle}
               </p>
             </div>
 
@@ -169,7 +167,7 @@ export function Hero() {
                 className={`bg-gradient-to-r ${colors.button} text-white shadow-lg hover:shadow-xl transition-shadow group`}
               >
                 <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
-                Baixe Grátis v1.0.0
+                {t.hero.ctaDownload} 
               </Button>
               <Button
                 onClick={() => window.open(repoUrl, "_blank", "noopener,noreferrer")}
@@ -178,14 +176,13 @@ export function Hero() {
                 className={`border-2 ${colors.buttonOutline} ${theme === 'dark' ? 'bg-black/20 hover:bg-white/10' : 'bg-white/40 hover:bg-white/60'} backdrop-blur transition-colors`}
               >
                 <Github className="w-5 h-5 mr-2" />
-                Ver no GitHub
+                {t.hero.ctaGithub}
               </Button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll indicator - Only show if light theme or make white in dark */}
       <motion.div
         className="absolute bottom-10 left-1/2 -translate-x-1/2"
         initial={{ opacity: 0 }}
@@ -215,8 +212,6 @@ export function Hero() {
         >
           <path 
             d="M0,0 C150,100 350,0 600,50 C850,100 1050,0 1200,50 L1200,120 L0,120 Z" 
-            // Changed fill to match the background of the NEXT section (usually white or dark)
-            // If your next section is white, keep it white. If dark, change this.
             className={theme === 'dark' ? "fill-black" : "fill-white"} 
             style={{ opacity: 1 }}
           />

@@ -4,10 +4,18 @@ import { motion } from "framer-motion"
 import { Shield, CheckCircle, Lock, Zap, Heart, Server } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { useTheme } from "@/contexts/theme-context"
+import { useLanguage } from "@/contexts/language-context"
 
 export function Security() {
   const { theme } = useTheme()
+  const { t } = useLanguage()
   const isDark = theme === "dark" // Helper variable
+  const badgeIcons = [
+    Shield,
+    Lock,
+    Zap, 
+    Server,
+  ]
 
   const themeStyles = {
     blue: {
@@ -57,29 +65,6 @@ export function Security() {
 
   const s = themeStyles[theme]
 
-  const features = [
-    {
-      icon: Shield,
-      title: "Ferramenta Oficial",
-      description: "Usa apenas Game State Integration (GSI), recurso oficial fornecido pela Valve",
-    },
-    {
-      icon: Lock,
-      title: "100% Seguro",
-      description: "Não modifica arquivos do jogo nem interfere na memória do Dota 2",
-    },
-    {
-      icon: Zap,
-      title: "Zero FPS Impact",
-      description: "Roda em paralelo sem afetar o desempenho do jogo",
-    },
-    {
-      icon: Server,
-      title: "Sem Conexão Externa",
-      description: "Funciona completamente offline, sem enviar dados para servidores",
-    },
-  ]
-
   return (
     <section className={`py-20 bg-gradient-to-br ${s.sectionBg} relative overflow-hidden`}>
       <div className="absolute inset-0">
@@ -120,11 +105,10 @@ export function Security() {
           transition={{ duration: 0.6 }}
         >
           <h2 className={`text-4xl lg:text-5xl font-bold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
-            O Runinhas é seguro?
+            {t.safety.title}
           </h2>
           <p className={`text-xl max-w-3xl mx-auto ${isDark ? "text-gray-400" : "text-gray-600"}`}>
-            O Runinhas usa apenas tecnologia oficial e aprovada pela Valve.
-            Sem hacks, sem cheats, sem riscos.
+           {t.safety.description}
           </p>
         </motion.div>
 
@@ -162,9 +146,7 @@ export function Security() {
                     Game State Integration (GSI)
                   </h3>
                   <p className={`text-lg mb-6 leading-relaxed ${isDark ? "text-gray-300" : "text-gray-700"}`}>
-                    O Runinhas utiliza o <strong>Game State Integration</strong>, uma API oficial da Valve
-                    que permite aplicativos externos receberem informações do jogo de forma segura.
-                    É a mesma tecnologia usada por streamers profissionais e ferramentas autorizadas.
+                   {t.safety.gsiDesc.a} <strong>{t.safety.gsiDesc.b}</strong>{t.safety.gsiDesc.c}
                   </p>
                   
                   <div className="flex flex-wrap gap-3 justify-center lg:justify-start">
@@ -193,8 +175,10 @@ export function Security() {
           </div>
         </motion.div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-          {features.map((feature, index) => {
-            const Icon = feature.icon
+          {t.safety.badges.map((badge, index ) => {
+            
+            const Icon = badgeIcons[index]
+
             return (
               <motion.div
                 key={index}
@@ -212,10 +196,10 @@ export function Security() {
                     <Icon className="w-7 h-7 text-white" />
                   </div>
                   <h4 className={`text-lg font-bold mb-2 ${isDark ? "text-white" : "text-gray-900"}`}>
-                    {feature.title}
+                    {badge.title}
                   </h4>
                   <p className={`text-sm leading-relaxed ${isDark ? "text-gray-400" : "text-gray-600"}`}>
-                    {feature.description}
+                    {badge.desc}
                   </p>
                 </div>
               </motion.div>
@@ -231,7 +215,7 @@ export function Security() {
         >
           <div className={`inline-block bg-gradient-to-r ${s.bottomCtaGrad} text-white px-8 py-4 rounded-2xl shadow-xl`}>
             <p className="text-lg font-semibold">
-              🛡️ Use com tranquilidade. O Runinhas é 100% seguro e aprovado.
+              {t.safety.subtitle}
             </p>
           </div>
         </motion.div>

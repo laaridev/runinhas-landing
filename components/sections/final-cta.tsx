@@ -5,12 +5,16 @@ import { Download, Github } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import { useTheme } from "@/contexts/theme-context"
+import { useLanguage } from "@/contexts/language-context"
 import { useState } from "react"
 import { DownloadModal } from "@/components/download-modal"
 
 export function FinalCTA() {
   const { theme } = useTheme()
+  const { t } = useLanguage()
   const [downloadOpen, setDownloadOpen] = useState(false)
+
+  // --- THE KITCHEN: Logic & Visuals ---
   const repoUrl = "https://github.com/laaridev/runinhas"
   const downloadUrl = "https://github.com/laaridev/runinhas/releases/download/v1.0.0/runinhas.exe"
 
@@ -94,15 +98,17 @@ export function FinalCTA() {
             </div>
           </motion.div>
 
+          {/* Title from Dictionary */}
           <motion.h2
             className="text-4xl lg:text-6xl font-black text-white mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
           >
-            Pronto pra Subir de Rank?
+            {t.cta.title}
           </motion.h2>
 
+          {/* Subtitle from Dictionary */}
           <motion.p
             className={`text-xl lg:text-2xl ${s.textTint} mb-12 max-w-2xl mx-auto`}
             initial={{ opacity: 0, y: 20 }}
@@ -110,7 +116,7 @@ export function FinalCTA() {
             viewport={{ once: true }}
             transition={{ delay: 0.4 }}
           >
-            consistência de jogo com o Runinhas.
+            {t.cta.subtitle}
           </motion.p>
 
           {/* CTA Buttons */}
@@ -127,8 +133,10 @@ export function FinalCTA() {
               className={`bg-white ${s.buttonText} hover:bg-white/90 text-black hover:scale-105 shadow-2xl group`}
             >
               <Download className="w-5 h-5 mr-2 group-hover:animate-bounce" />
-              Baixe agora
+              {/* Reusing the Hero button text to keep it consistent */}
+              {t.hero.ctaDownload}
             </Button>
+            
             <Button
               onClick={() => window.open(repoUrl, "_blank", "noopener,noreferrer")}
               size="lg"
@@ -136,9 +144,11 @@ export function FinalCTA() {
               className="border-2 border-white text-white hover:bg-white/10"
             >
               <Github className="w-5 h-5 mr-2" />
-              Ver no GitHub
+              {/* Reusing the Hero button text */}
+              {t.hero.ctaGithub}
             </Button>
           </motion.div>
+          
           <DownloadModal open={downloadOpen} onClose={() => setDownloadOpen(false)} downloadUrl={downloadUrl} />
         </motion.div>
       </div>
