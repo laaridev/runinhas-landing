@@ -3,30 +3,27 @@
 import { motion } from "framer-motion"
 import { Download, Play, Bell, ArrowRight } from "lucide-react"
 import { useTheme } from "@/contexts/theme-context"
-
-const steps = [
-  {
-    number: "01",
-    icon: Download,
-    title: "Baixe e Instale",
-    description: "Instalação simples e rápida — disponível pra Windows e Linux.",
-  },
-  {
-    number: "02",
-    icon: Play,
-    title: "Abra o Dota 2",
-    description: "O Runinhas detecta automaticamente quando o jogo começa.",
-  },
-  {
-    number: "03",
-    icon: Bell,
-    title: "Receba os Avisos",
-    description: "Alertas de voz e som em tempo real pra tudo que importa.",
-  },
-]
+import { useLanguage } from "@/contexts/language-context"
 
 export function HowToUse() {
   const { theme } = useTheme()
+  const { t } = useLanguage()
+  
+  // --- THE KITCHEN: Visuals Only ---
+  const stepVisuals = [
+    { 
+      number: "01", 
+      icon: Download 
+    },
+    { 
+      number: "02", 
+      icon: Play 
+    },
+    { 
+      number: "03", 
+      icon: Bell 
+    },
+  ]
 
   // Centralized styles configuration
   const themeStyles = {
@@ -38,11 +35,9 @@ export function HowToUse() {
       stepTitle: "text-gray-900",
       stepDesc: "text-gray-600",
       arrow: "text-blue-400",
-      // Badge styles
       badgeBg: "bg-white",
       badgeBorder: "border-blue-100",
       badgeText: "from-blue-600 to-indigo-600",
-      // Icon Gradients
       gradients: [
         "from-blue-500 to-indigo-500",
         "from-indigo-500 to-purple-500",
@@ -57,11 +52,9 @@ export function HowToUse() {
       stepTitle: "text-gray-900",
       stepDesc: "text-gray-600",
       arrow: "text-pink-400",
-      // Badge styles
       badgeBg: "bg-white",
       badgeBorder: "border-pink-100",
       badgeText: "from-pink-600 to-rose-600",
-      // Icon Gradients
       gradients: [
         "from-pink-500 to-rose-500",
         "from-rose-500 to-purple-500",
@@ -70,17 +63,15 @@ export function HowToUse() {
     },
     dark: {
       bg: "bg-slate-950",
-      bgDecoration: "via-blue-900/10", // Very subtle glow
+      bgDecoration: "via-blue-900/10",
       title: "text-white",
       subtitle: "text-slate-400",
       stepTitle: "text-slate-100",
       stepDesc: "text-slate-400",
       arrow: "text-slate-600",
-      // Badge styles
-      badgeBg: "bg-slate-800", // Dark badge
+      badgeBg: "bg-slate-800",
       badgeBorder: "border-slate-700",
-      badgeText: "from-white to-slate-200", // White number
-      // Icon Gradients (Neon look for dark mode)
+      badgeText: "from-white to-slate-200",
       gradients: [
         "from-blue-600 to-indigo-600",
         "from-indigo-600 to-violet-600",
@@ -105,16 +96,21 @@ export function HowToUse() {
           transition={{ duration: 0.6 }}
         >
           <h2 className={`text-4xl lg:text-5xl font-bold mb-4 transition-colors duration-500 ${s.title}`}>
-            Como Utilizar
+            {t.howToUse.title}
           </h2>
           <p className={`text-xl max-w-3xl mx-auto transition-colors duration-500 ${s.subtitle}`}>
-            3 passos simples para nunca mais perder um timing importante
+            {t.howToUse.subtitle}
           </p>
         </motion.div>
 
         <div className="max-w-5xl mx-auto">
-          {steps.map((step, index) => {
-            const Icon = step.icon
+          {/* THE ZIPPER LOOP */}
+          {t.howToUse.steps.map((step, index) => {
+            
+            // 1. Get Visuals
+            const visual = stepVisuals[index] || stepVisuals[0]
+            const Icon = visual.icon
+            
             return (
               <div key={index}>
                 <motion.div
@@ -139,25 +135,25 @@ export function HowToUse() {
                       {/* Floating Badge (Number) */}
                       <div className={`absolute -top-4 -right-4 w-16 h-16 rounded-2xl shadow-lg flex items-center justify-center border-4 transition-colors duration-500 ${s.badgeBg} ${s.badgeBorder}`}>
                         <span className={`text-2xl font-black bg-gradient-to-br bg-clip-text text-transparent transition-all duration-500 ${s.badgeText}`}>
-                          {step.number}
+                          {visual.number}
                         </span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Content */}
+                  {/* Content (From Dictionary) */}
                   <div className="flex-1 text-center md:text-left">
                     <h3 className={`text-3xl font-bold mb-3 transition-colors duration-500 ${s.stepTitle}`}>
                       {step.title}
                     </h3>
                     <p className={`text-lg leading-relaxed transition-colors duration-500 ${s.stepDesc}`}>
-                      {step.description}
+                      {step.desc}
                     </p>
                   </div>
                 </motion.div>
 
                 {/* Arrow between steps */}
-                {index < steps.length - 1 && (
+                {index < t.howToUse.steps.length - 1 && (
                   <motion.div
                     className="flex justify-center my-8"
                     initial={{ opacity: 0, y: -20 }}

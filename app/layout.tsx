@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/theme-context";
 import { Analytics } from "@vercel/analytics/next"
+import { LanguageProvider } from "@/contexts/language-context";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -36,13 +37,14 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <html lang="pt-BR">
-      <Analytics />
-      <body className={inter.className}>
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+return (
+    <html lang="pt">
+      <body>
+        <LanguageProvider>
+            <ThemeProvider>
+            {children}
+            </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

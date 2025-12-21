@@ -3,9 +3,11 @@
 import { motion } from "framer-motion"
 import { X, Check, AlertCircle, Sparkles } from "lucide-react"
 import { useTheme } from "@/contexts/theme-context"
+import { useLanguage } from "@/contexts/language-context"
 
 export function ProblemSolution() {
   const { theme } = useTheme()
+  const { t } = useLanguage()
 
   // STEP 1: DEFINE THE STYLES FOR ALL 3 THEMES
   // Instead of "if/else", we use an object to map the keys.
@@ -45,13 +47,10 @@ export function ProblemSolution() {
 
   // Get current styles based on theme
   const s = themeStyles[theme]
-
-  // Helper boolean to check if we are in dark mode (to fix the Red card and text)
+  
   const isDark = theme === "dark"
 
   return (
-    // STEP 2: FIX THE MAIN BACKGROUND AND TEXT
-    // Changed "bg-white" to dynamic check
     <section className={`py-20 ${isDark ? "bg-black" : "bg-white"}`}>
       <div className="container mx-auto px-4">
         <motion.div
@@ -61,19 +60,15 @@ export function ProblemSolution() {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          {/* Dynamic Title Color */}
           <h2 className={`text-4xl lg:text-5xl font-bold mb-4 ${isDark ? "text-white" : "text-gray-900"}`}>
-            O Problema que Todo Jogador Enfrenta
+            {t.problem.title}
           </h2>
-          {/* Dynamic Description Color */}
           <p className={`text-xl max-w-3xl mx-auto ${isDark ? "text-gray-400" : "text-gray-600"}`}>
-            Manter o foco em farm, fights e ainda lembrar dos timings de runas e stacks é quase impossível.
-            Um descuido, e o inimigo pega a runa… ou você perde um stack.
+            {t.problem.subtitle}
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          {/* Problema Card (This is usually RED, but in dark mode we need DARK RED) */}
           <motion.div
             className={`rounded-3xl p-8 border-2 ${
               isDark 
@@ -90,18 +85,12 @@ export function ProblemSolution() {
                 <X className="w-6 h-6 text-white" />
               </div>
               <h3 className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
-                Sem Runinhas
+                {t.problem.without.title}
               </h3>
             </div>
 
             <ul className="space-y-4">
-              {[
-                "Você esquece o tempo ideal pra fazer stacks.",
-                "Deixa a runa de poder pro inimigo (de novo).",
-                "Perde o XP dos 7 minutos porque ficou focado demais na lane.",
-                "Anoitece e você é gankado sem nem perceber.",
-                "A catapulta chega... e você ainda tá batendo em creep.",
-              ].map((problem, index) => (
+              {t.problem.without.items.map((problem, index) => (
                 <motion.li
                   key={index}
                   className="flex items-start gap-3"
@@ -135,19 +124,13 @@ export function ProblemSolution() {
               </div>
               {/* Dynamic Title Color for Solution Card */}
               <h3 className={`text-2xl font-bold ${isDark ? "text-white" : "text-gray-900"}`}>
-                Com Runinhas
+                {t.problem.with.title}
               </h3>
               <Sparkles className={`w-5 h-5 ${s.sparkles} ml-auto`} />
             </div>
 
             <ul className="space-y-4 relative">
-              {[
-                "Avisos automáticos e precisos pra todas as runas",
-                "Stack timing perfeito, sem erro",
-                "Alertas antecipados de catapultas e ciclos",
-                "Áudios e notificações inteligentes",
-                "100% seguro, sem impacto no desempenho",
-              ].map((solution, index) => (
+              {t.problem.with.items.map((solution, index) => (
                 <motion.li
                   key={index}
                   className="flex items-start gap-3"
@@ -159,7 +142,6 @@ export function ProblemSolution() {
                   <div className={`w-5 h-5 ${s.bullet} rounded-full flex items-center justify-center flex-shrink-0 mt-0.5`}>
                     <Check className="w-3 h-3 text-white" />
                   </div>
-                  {/* Dynamic List Text */}
                   <span className={`${isDark ? "text-gray-300" : "text-gray-700"} font-medium`}>
                     {solution}
                   </span>
@@ -178,7 +160,7 @@ export function ProblemSolution() {
               transition={{ delay: 0.5 }}
             >
               <p className={`text-sm ${s.infoText} font-semibold`}>
-                Foque no jogo. O Runinhas cuida dos timings.
+                {t.problem.with.infolabel}
               </p>
             </motion.div>
           </motion.div>
